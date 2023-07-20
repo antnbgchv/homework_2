@@ -12,7 +12,7 @@ public class StudentRegistrationFormTests {
 
     @BeforeAll
     static void config() {
-        //конфигурационные параметры
+        //configParams
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
@@ -23,46 +23,45 @@ public class StudentRegistrationFormTests {
 
         open("/automation-practice-form");
 
-        //добавил код, который скрывает рекламу и футер
+        //addsAndFooter
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
-        //задаем значения строкам
+        //values
         $("#firstName").setValue("Homer");
         $("#lastName").setValue("Simpson");
         $("#userEmail").setValue("mr.plow@gmail.com");
         $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("1234567890");
 
-        //выбор даты рождения
+        //dateOfBirth
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOptionContainingText("May");
         $(".react-datepicker__year-select").selectOptionContainingText("1956");
         $(".react-datepicker__day.react-datepicker__day--012").click();
 
-        // выбор subject
+        //subjects
         $("#subjectsContainer input").setValue("Physics").pressEnter();
 
-        //выбор хобби
+        //hobbies
         $("#hobbiesWrapper").$(byText("Sports")).click();
 
-        //загрузка изображения
+        //uploadImg
         $("#uploadPicture").uploadFromClasspath("coolPic.jpg");
 
-        //ввод текущего адреса
+        //currentAddress
         $("#currentAddress").setValue("742 Evergreen Terrace");
 
-        //выбор штата и города
+        //stateAndCity
         $("#state").click();
         $("#stateCity-wrapper").$(byText("Haryana")).click();
         $("#city").click();
         $("#stateCity-wrapper").$(byText("Karnal")).click();
 
-        //отправка формы
+        //formSubmit
         $("#submit").click();
 
-        /* тесты (добавил проверку что форма отобразилась на экране после сабмита и изменил
-        сами тесты) */
+        //tests
         $(".modal-content").should(appear);
         $(".table-responsive").$(byText("Student Name"))
                 .parent().shouldHave(text("Homer Simpson"));
